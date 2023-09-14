@@ -1,0 +1,30 @@
+.form {
+  padding: 2rem;
+}
+
+.form__control {
+    margin: 1.5rem 0;
+}
+
+.form__control label {
+  display: block;
+  margin: 0.5rem 0;
+  font-weight: bold;
+  font-size: 1.15rem;
+}
+
+.form__control input {
+  font-family: sans-serif;
+  font-size: 1.1rem;
+  display: block;
+  width: 100%;
+  border-radius: 0.2rem;
+  border: 1px solid #c2c2c2;
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.form__control input:focus {
+  outline: none;
+  border-color: #363795;
+}
