@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import classes from './UserForm.module.css';
 import Button from '../UI/Button';
@@ -6,20 +6,15 @@ import Card from '../UI/Card';
 import ErrorModal from '../UI/ErrorModal';
 
 const UserForm = ({onAddUser, onClearAll}) => {
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredAge, setEnteredAge] = useState('');
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
+
     const [errorMessage, setErrorMessage] = useState();
-
-    const nameChangeHandler = (event) => {
-        setEnteredName(event.target.value);
-    };
-
-    const ageChangeHandler = (event) => {
-        setEnteredAge(event.target.value);
-    };
 
     const submitHandler = (event) => {
         event.preventDefault();
+        const enteredName = nameInputRef.current.value;
+        const enteredAge = nameInputRef.current.value;
 
         if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
             setErrorMessage({
@@ -39,8 +34,10 @@ const UserForm = ({onAddUser, onClearAll}) => {
 
         onAddUser(enteredName, enteredAge);
 
-        setEnteredName('');
-        setEnteredAge('');
+        /* Resetting inputs while working with refs, generally not advisable */
+        nameInputRef.current.value = '';
+        ageInputRef.current.value = '';
+
     };
 
     const clearHandler = () => {
@@ -67,8 +64,7 @@ const UserForm = ({onAddUser, onClearAll}) => {
                         <input 
                             type='text' 
                             id='name' 
-                            onChange={nameChangeHandler}
-                            value={enteredName}
+                            ref={nameInputRef}
                         />
                     </div>
                     <div className={classes['form__control']}>
@@ -76,8 +72,7 @@ const UserForm = ({onAddUser, onClearAll}) => {
                         <input 
                             type='number' 
                             id='age' 
-                            onChange={ageChangeHandler}
-                            value={enteredAge}
+                            ref={ageInputRef}
                         />
                     </div>
                     <div className={classes['form__actions']}>
